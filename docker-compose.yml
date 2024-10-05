@@ -1,0 +1,24 @@
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse-server
+    ports:
+      - "18123:8123"   # HTTP 接口
+      - "19000:9000"   # Native 接口
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - ./data:/var/lib/clickhouse
+      - ./logs:/var/log/clickhouse-server
+      - ./config.d:/etc/clickhouse-server/config.d
+      - ./users.d:/etc/clickhouse-server/users.d
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    cap_add:
+      - SYS_NICE
+      - SYS_RESOURCE
+    # 如果上述 `cap_add` 无效，可以尝试启用特权模式
+    # privileged: true
+

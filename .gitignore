@@ -1,0 +1,15 @@
+# 排除数据和日志目录
+data/
+logs/
+
+# 排除环境变量文件（如果使用）
+.env
+
+# 排除操作系统生成的文件
+.DS_Store
+
+# 排除 Docker 相关临时文件
+docker-compose.override.yml
+
+# 其他您希望排除的文件或目录
+
